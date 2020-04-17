@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 
+from database import mongodb
 from todo_list.apis.api import todo_list_bp
 
 
@@ -16,6 +17,8 @@ def make_app():
     CORS(application)
 
     application.register_blueprint(todo_list_bp)
+
+    mongodb.connect(application.config["MONGO_URL"])
 
     return application
 
